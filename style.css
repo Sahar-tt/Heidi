@@ -1,4 +1,4 @@
-/* Page Layout */
+/* Container layout to center your page */
 body {
   font-family: 'Georgia', serif;
   background-color: #f7f4ed;
@@ -19,47 +19,45 @@ body {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* Illustration Base Styling */
+/* Base image styling */
 .live-illustration {
   width: 100%;
   max-width: 420px;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  
+  /* 1. CONTINUOUS FLOATING MOTION */
   animation: gentleFloat 4s ease-in-out infinite;
   transition: transform 0.3s ease;
 }
 
-/* Interactive Hover Bounce Effect */
+/* 2. HOVER BOUNCE MOTION (triggers on mouse hover) */
 .live-illustration:hover {
   animation: bounceEffect 0.6s ease infinite alternate;
   cursor: pointer;
 }
 
-/* Motion Animations */
+/* --- MOTION KEYFRAMES --- */
+
+/* Gentle floating up and down */
 @keyframes gentleFloat {
-  0% { transform: translateY(0px) scale(1); }
-  50% { transform: translateY(-6px) scale(1.01); }
-  100% { transform: translateY(0px) scale(1); }
+  0% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.01);
+  }
+  100% {
+    transform: translateY(0px) scale(1);
+  }
 }
 
+/* Playful spring/bounce when hovered */
 @keyframes bounceEffect {
-  0% { transform: translateY(0) scale(1); }
-  100% { transform: translateY(-10px) scale(1.03); }
-}
-
-/* Story Text & Controls Styling */
-.story-text {
-  font-size: 1.25rem;
-  color: #2c3e50;
-  line-height: 1.6;
-  margin: 24px 0 16px;
-}
-
-.audio-controls {
-  margin-top: 15px;
-}
-
-audio {
-  width: 100%;
-  max-width: 320px;
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    transform: translateY(-12px) scale(1.03);
+  }
 }
