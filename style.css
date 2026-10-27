@@ -1,7 +1,14 @@
 
-/* Page layout */
+/* ==========================
+   1. PAGE LAYOUT
+   ========================== */
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: 'Georgia', serif;
+  font-family: Georgia, serif;
   background-color: #f7f4ed;
   display: flex;
   justify-content: center;
@@ -9,14 +16,12 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 20px;
-  box-sizing: border-box;
 }
 
 .storybook-container {
   text-align: center;
   width: 100%;
   max-width: 600px;
-  box-sizing: border-box;
   background: #ffffff;
   padding: 30px;
   border-radius: 16px;
@@ -25,9 +30,15 @@ body {
 
 h1 {
   color: #514538;
+  margin-top: 0;
+  line-height: 1.3;
 }
 
-/* Scene */
+
+/* ==========================
+   2. ILLUSTRATION SCENE
+   ========================== */
+
 .illustration-wrapper {
   position: relative;
   width: 100%;
@@ -40,7 +51,8 @@ h1 {
   line-height: 0;
 }
 
-/* Fixed background */
+/* Static Alpine meadow */
+
 .meadow {
   display: block;
   width: 100%;
@@ -49,21 +61,26 @@ h1 {
   pointer-events: none;
 }
 
-/* Characters */
+
+/* ==========================
+   3. HEIDI AND THE GOAT
+   ========================== */
+
 .heidi,
 .goat {
   position: absolute;
-  width: 25%;
+  display: block;
   height: auto;
   object-fit: contain;
   user-select: none;
   pointer-events: none;
-  will-change: left, top;
+  max-width: 100%;
 }
 
 .heidi {
   left: 10%;
   top: 50%;
+  width: 25%;
   z-index: 2;
 }
 
@@ -74,7 +91,11 @@ h1 {
   z-index: 3;
 }
 
-/* Story text */
+
+/* ==========================
+   4. STORY TEXT
+   ========================== */
+
 .story-text {
   font-size: 1.1rem;
   line-height: 1.6;
@@ -87,9 +108,14 @@ h1 {
   line-height: 1.5;
   color: #777777;
   margin-top: 12px;
+  color: #777777;
 }
 
-/* Mobile layout */
+
+/* ==========================
+   5. MOBILE LAYOUT
+   ========================== */
+
 @media (max-width: 600px) {
   body {
     padding: 12px;
@@ -109,5 +135,9 @@ h1 {
 
   .goat {
     width: 24%;
+  }
+
+  h1 {
+    font-size: 1.6rem;
   }
 }
