@@ -1,6 +1,5 @@
 
-
-/* Container layout to center your page */
+/* Page layout */
 body {
   font-family: 'Georgia', serif;
   background-color: #f7f4ed;
@@ -14,14 +13,16 @@ body {
 
 .storybook-container {
   text-align: center;
+  width: 100%;
   max-width: 600px;
+  box-sizing: border-box;
   background: #ffffff;
   padding: 30px;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* Illustration scene */
+/* The scene containing the meadow and characters */
 .illustration-wrapper {
   position: relative;
   width: 100%;
@@ -32,82 +33,77 @@ body {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* Fixed Alpine meadow */
+/* The meadow stays still */
 .meadow {
   display: block;
   width: 100%;
   height: auto;
 }
 
-/* Heidi and goat are positioned independently */
+/* Both characters sit on top of the meadow */
 .heidi,
 .goat {
   position: absolute;
   bottom: 5%;
   width: 25%;
   height: auto;
-  transition: transform 0.3s ease;
+  object-fit: contain;
+  cursor: pointer;
 }
 
-/* Heidi's movement */
+/* Heidi walks and jumps */
 .heidi {
   left: 10%;
-  animation: heidiWalk 8s ease-in-out infinite alternate;
+  animation:
+    heidiWalk 8s ease-in-out infinite alternate,
+    heidiJump 1s ease-in-out infinite;
 }
 
-/* Goat's movement */
+/* The goat has its own movement and jumping rhythm */
 .goat {
   left: 60%;
-  animation: goatWalk 5s ease-in-out infinite alternate;
+  animation:
+    goatWalk 5s ease-in-out infinite alternate,
+    goatJump 0.7s ease-in-out infinite;
 }
 
-/* Heidi moves slowly across the meadow */
+/* Heidi's horizontal movement */
 @keyframes heidiWalk {
   from {
-    transform: translateX(0);
+    translate: 0 0;
   }
   to {
-    transform: translateX(100px);
+    translate: 100px 0;
   }
 }
 
-/* The goat moves independently */
+/* Heidi's vertical jump */
+@keyframes heidiJump {
+  0%, 100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -25px;
+  }
+}
+
+/* Goat's horizontal movement */
 @keyframes goatWalk {
   from {
-    transform: translateX(0);
+    translate: 0 0;
   }
   to {
-    transform: translateX(45px);
+    translate: 45px 0;
   }
 }
 
-/* Gentle bounce when hovering over Heidi */
-.heidi:hover {
-  animation: heidiBounce 0.5s ease-in-out infinite alternate;
-  cursor: pointer;
-}
-
-@keyframes heidiBounce {
-  from {
-    transform: translateY(0);
+/* The goat jumps a little faster */
+@keyframes goatJump {
+  0%, 100% {
+    translate: 0 0;
   }
-  to {
-    transform: translateY(-8px);
-  }
-}
-
-/* Gentle bounce when hovering over the goat */
-.goat:hover {
-  animation: goatBounce 0.5s ease-in-out infinite alternate;
-  cursor: pointer;
-}
-
-@keyframes goatBounce {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-6px);
+  50% {
+    translate: 0 -18px;
   }
 }
 
@@ -119,7 +115,7 @@ body {
   margin-top: 24px;
 }
 
-/* Responsive layout for smaller screens */
+/* Smaller screens */
 @media (max-width: 600px) {
   .storybook-container {
     padding: 20px;
