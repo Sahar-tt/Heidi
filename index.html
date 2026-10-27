@@ -1,20 +1,47 @@
-<!-- Animated Illustration -->
-<div class="illustration-wrapper">
-  <img
-    src="swiss_alps_meadow.png"
-    alt="Swiss Alpine meadow"
-    class="meadow"
-  />
 
-  <img
-    src="heidi_character.png"
-    alt="Heidi"
-    class="heidi"
-  />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heidi - Interactive Storybook</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="storybook-container">
+    <header>
+      <h1>Heidi by Johanna Spyri</h1>
+    </header>
 
-  <img
-    src="goat_character.png"
-    alt="A goat"
-    class="goat"
-  />
-</div>
+    <main class="page-content">
+      <!-- Animated Illustration -->
+      <div class="illustration-wrapper">
+        <!-- Static Alpine meadow -->
+        <img
+          src="swiss_alps_meadow.png"
+          alt="Swiss Alpine meadow"
+          class="meadow"
+        />
+
+        <!-- Heidi moves independently -->
+        <img
+          src="heidi_character.png"
+          alt="Heidi"
+          class="heidi"
+        />
+
+        <!-- The goat moves independently -->
+        <img
+          src="goat_character.png"
+          alt="A goat"
+          class="goat"
+        />
+      </div>
+
+      <p class="story-text">
+        High up in the Swiss Alps, a little girl named Heidi began her great adventure.
+      </p>
+    </main>
+  </div>
+</body>
+</html>
