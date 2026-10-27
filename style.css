@@ -1,1 +1,136 @@
 
+
+/* Container layout to center your page */
+body {
+  font-family: 'Georgia', serif;
+  background-color: #f7f4ed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+}
+
+.storybook-container {
+  text-align: center;
+  max-width: 600px;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Illustration scene */
+.illustration-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Fixed Alpine meadow */
+.meadow {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Heidi and goat are positioned independently */
+.heidi,
+.goat {
+  position: absolute;
+  bottom: 5%;
+  width: 25%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+/* Heidi's movement */
+.heidi {
+  left: 10%;
+  animation: heidiWalk 8s ease-in-out infinite alternate;
+}
+
+/* Goat's movement */
+.goat {
+  left: 60%;
+  animation: goatWalk 5s ease-in-out infinite alternate;
+}
+
+/* Heidi moves slowly across the meadow */
+@keyframes heidiWalk {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100px);
+  }
+}
+
+/* The goat moves independently */
+@keyframes goatWalk {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(45px);
+  }
+}
+
+/* Gentle bounce when hovering over Heidi */
+.heidi:hover {
+  animation: heidiBounce 0.5s ease-in-out infinite alternate;
+  cursor: pointer;
+}
+
+@keyframes heidiBounce {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-8px);
+  }
+}
+
+/* Gentle bounce when hovering over the goat */
+.goat:hover {
+  animation: goatBounce 0.5s ease-in-out infinite alternate;
+  cursor: pointer;
+}
+
+@keyframes goatBounce {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-6px);
+  }
+}
+
+/* Story text */
+.story-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #444444;
+  margin-top: 24px;
+}
+
+/* Responsive layout for smaller screens */
+@media (max-width: 600px) {
+  .storybook-container {
+    padding: 20px;
+  }
+
+  .illustration-wrapper {
+    max-width: 100%;
+  }
+
+  .heidi,
+  .goat {
+    width: 28%;
+  }
+}
