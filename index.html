@@ -15,6 +15,7 @@
 
     <main class="page-content">
       <div class="illustration-wrapper">
+
         <!-- The meadow remains still -->
         <img
           src="swiss_alps_meadow.png"
@@ -35,11 +36,13 @@
           alt="A goat"
           class="goat"
         />
+
       </div>
 
       <p class="story-text">
         High up in the Swiss Alps, a little girl named Heidi began her great adventure.
       </p>
+
       <p class="interaction-hint">
         Move your mouse over the meadow to guide Heidi and her little friend!
       </p>
@@ -53,25 +56,93 @@
 
     let targetX = 0;
     let targetY = 0;
+
     let heidiX = 0;
     let heidiY = 0;
+
     let goatX = 0;
     let goatY = 0;
 
+    function setInitialPositions() {
+      const width = scene.clientWidth;
+      const height = scene.clientHeight;
+
+      heidiX = width * 0.12;
+      heidiY = height * 0.50;
+
+      goatX = width * 0.58;
+      goatY = height * 0.55;
+
+      targetX = heidiX;
+      targetY = heidiY;
+
+      heidi.style.left = heidiX + "px";
+      heidi.style.top = heidiY + "px";
+
+      goat.style.left = goatX + "px";
+      goat.style.top = goatY + "px";
+    }
+
+    function moveCharacters(event) {
+      const bounds = scene.getBoundingClientRect();
+
+      targetX =
+        event.clientX -
+        bounds.left -
+        heidi.offsetWidth / 2;
+
+      targetY =
+        event.clientY -
+        bounds.top -
+        heidi.offsetHeight / 2;
+    }
+
     function updatePositions() {
-      const maxHeidiX = scene.clientWidth - heidi.offsetWidth;
-      const maxHeidiY = scene.clientHeight - heidi.offsetHeight;
-      const maxGoatX = scene.clientWidth - goat.offsetWidth;
-      const maxGoatY = scene.clientHeight - goat.offsetHeight;
+      const maxHeidiX = Math.max(
+        0,
+        scene.clientWidth - heidi.offsetWidth
+      );
 
-      const safeHeidiX = Math.max(0, Math.min(targetX, maxHeidiX));
-      const safeHeidiY = Math.max(0, Math.min(targetY, maxHeidiY));
-      const safeGoatX = Math.max(0, Math.min(targetX + 35, maxGoatX));
-      const safeGoatY = Math.max(0, Math.min(targetY + 20, maxGoatY));
+      const maxHeidiY = Math.max(
+        0,
+        scene.clientHeight - heidi.offsetHeight
+      );
 
+      const maxGoatX = Math.max(
+        0,
+        scene.clientWidth - goat.offsetWidth
+      );
+
+      const maxGoatY = Math.max(
+        0,
+        scene.clientHeight - goat.offsetHeight
+      );
+
+      const safeHeidiX = Math.max(
+        0,
+        Math.min(targetX, maxHeidiX)
+      );
+
+      const safeHeidiY = Math.max(
+        0,
+        Math.min(targetY, maxHeidiY)
+      );
+
+      const safeGoatX = Math.max(
+        0,
+        Math.min(targetX + 35, maxGoatX)
+      );
+
+      const safeGoatY = Math.max(
+        0,
+        Math.min(targetY + 20, maxGoatY)
+      );
+
+      // Heidi follows the cursor smoothly
       heidiX += (safeHeidiX - heidiX) * 0.18;
       heidiY += (safeHeidiY - heidiY) * 0.18;
 
+      // The goat follows more slowly
       goatX += (safeGoatX - goatX) * 0.08;
       goatY += (safeGoatY - goatY) * 0.08;
 
@@ -84,38 +155,30 @@
       requestAnimationFrame(updatePositions);
     }
 
-    function moveCharacters(event) {
-      const bounds = scene.getBoundingClientRect();
+    function startStorybook() {
+      if (!scene || !heidi || !goat) {
+        console.error(
+          "Heidi storybook: scene or character elements are missing."
+        );
+        return;
+      }
 
-      targetX = event.clientX - bounds.left - heidi.offsetWidth / 2;
-      targetY = event.clientY - bounds.top - heidi.offsetHeight / 2;
-    }
-
-    function setInitialPositions() {
-      heidiX = scene.clientWidth * 0.12;
-      heidiY = scene.clientHeight * 0.5;
-      goatX = scene.clientWidth * 0.58;
-      goatY = scene.clientHeight * 0.55;
-
-      heidi.style.left = heidiX + "px";
-      heidi.style.top = heidiY + "px";
-      goat.style.left = goatX + "px";
-      goat.style.top = goatY + "px";
-    }
-
-    scene.addEventListener("pointermove", moveCharacters);
-
-    window.addEventListener("resize", setInitialPositions);
-
-    window.addEventListener("load", () => {
       setInitialPositions();
+      scene.addEventListener("pointermove", moveCharacters);
       updatePositions();
-    });
+    }
 
     if (document.readyState === "complete") {
-      setInitialPositions();
-      updatePositions();
+      startStorybook();
+    } else {
+      window.addEventListener("load", startStorybook, { once: true });
     }
+
+    window.addEventListener("resize", () => {
+      if (scene && heidi && goat) {
+        setInitialPositions();
+      }
+    });
   </script>
 </body>
 </html>
