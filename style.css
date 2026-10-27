@@ -1,5 +1,8 @@
 
-/* Page layout */
+/* =========================
+   1. Page layout
+   ========================= */
+
 body {
   font-family: 'Georgia', serif;
   background-color: #f7f4ed;
@@ -9,6 +12,7 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .storybook-container {
@@ -22,7 +26,16 @@ body {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* The scene containing the meadow and characters */
+h1 {
+  color: #514538;
+  margin-top: 0;
+}
+
+
+/* =========================
+   2. Illustration scene
+   ========================= */
+
 .illustration-wrapper {
   position: relative;
   width: 100%;
@@ -31,83 +44,64 @@ body {
   overflow: hidden;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  cursor: crosshair;
+  line-height: 0;
 }
 
-/* The meadow stays still */
+/* The Alpine meadow stays still */
+
 .meadow {
   display: block;
   width: 100%;
   height: auto;
+  user-select: none;
+  pointer-events: none;
 }
 
-/* Both characters sit on top of the meadow */
+
+/* =========================
+   3. Heidi and the goat
+   ========================= */
+
 .heidi,
 .goat {
   position: absolute;
-  bottom: 5%;
   width: 25%;
   height: auto;
   object-fit: contain;
-  cursor: pointer;
+  user-select: none;
+  pointer-events: none;
+  transition:
+    left 0.18s ease-out,
+    top 0.18s ease-out;
 }
 
-/* Heidi walks and jumps */
+/* Initial position for Heidi */
+
 .heidi {
   left: 10%;
-  animation:
-    heidiWalk 8s ease-in-out infinite alternate,
-    heidiJump 1s ease-in-out infinite;
+  top: 50%;
+  z-index: 2;
 }
 
-/* The goat has its own movement and jumping rhythm */
+/* Initial position for the goat */
+
 .goat {
   left: 60%;
-  animation:
-    goatWalk 5s ease-in-out infinite alternate,
-    goatJump 0.7s ease-in-out infinite;
+  top: 55%;
+  z-index: 3;
+
+  /* The goat follows with a slightly slower response */
+  transition:
+    left 0.35s ease-out,
+    top 0.35s ease-out;
 }
 
-/* Heidi's horizontal movement */
-@keyframes heidiWalk {
-  from {
-    translate: 0 0;
-  }
-  to {
-    translate: 100px 0;
-  }
-}
 
-/* Heidi's vertical jump */
-@keyframes heidiJump {
-  0%, 100% {
-    translate: 0 0;
-  }
-  50% {
-    translate: 0 -25px;
-  }
-}
+/* =========================
+   4. Story text
+   ========================= */
 
-/* Goat's horizontal movement */
-@keyframes goatWalk {
-  from {
-    translate: 0 0;
-  }
-  to {
-    translate: 45px 0;
-  }
-}
-
-/* The goat jumps a little faster */
-@keyframes goatJump {
-  0%, 100% {
-    translate: 0 0;
-  }
-  50% {
-    translate: 0 -18px;
-  }
-}
-
-/* Story text */
 .story-text {
   font-size: 1.1rem;
   line-height: 1.6;
@@ -115,8 +109,16 @@ body {
   margin-top: 24px;
 }
 
-/* Smaller screens */
+
+/* =========================
+   5. Mobile layout
+   ========================= */
+
 @media (max-width: 600px) {
+  body {
+    padding: 12px;
+  }
+
   .storybook-container {
     padding: 20px;
   }
