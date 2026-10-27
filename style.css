@@ -1,8 +1,5 @@
 
-/* =========================
-   1. Page layout
-   ========================= */
-
+/* Page layout */
 body {
   font-family: 'Georgia', serif;
   background-color: #f7f4ed;
@@ -28,14 +25,9 @@ body {
 
 h1 {
   color: #514538;
-  margin-top: 0;
 }
 
-
-/* =========================
-   2. Illustration scene
-   ========================= */
-
+/* Scene */
 .illustration-wrapper {
   position: relative;
   width: 100%;
@@ -48,8 +40,7 @@ h1 {
   line-height: 0;
 }
 
-/* The Alpine meadow stays still */
-
+/* Fixed background */
 .meadow {
   display: block;
   width: 100%;
@@ -58,11 +49,7 @@ h1 {
   pointer-events: none;
 }
 
-
-/* =========================
-   3. Heidi and the goat
-   ========================= */
-
+/* Characters */
 .heidi,
 .goat {
   position: absolute;
@@ -71,12 +58,8 @@ h1 {
   object-fit: contain;
   user-select: none;
   pointer-events: none;
-  transition:
-    left 0.18s ease-out,
-    top 0.18s ease-out;
+  will-change: left, top;
 }
-
-/* Initial position for Heidi */
 
 .heidi {
   left: 10%;
@@ -84,24 +67,14 @@ h1 {
   z-index: 2;
 }
 
-/* Initial position for the goat */
-
 .goat {
   left: 60%;
   top: 55%;
+  width: 22%;
   z-index: 3;
-
-  /* The goat follows with a slightly slower response */
-  transition:
-    left 0.35s ease-out,
-    top 0.35s ease-out;
 }
 
-
-/* =========================
-   4. Story text
-   ========================= */
-
+/* Story text */
 .story-text {
   font-size: 1.1rem;
   line-height: 1.6;
@@ -109,11 +82,14 @@ h1 {
   margin-top: 24px;
 }
 
+.interaction-hint {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #777777;
+  margin-top: 12px;
+}
 
-/* =========================
-   5. Mobile layout
-   ========================= */
-
+/* Mobile layout */
 @media (max-width: 600px) {
   body {
     padding: 12px;
@@ -127,8 +103,11 @@ h1 {
     max-width: 100%;
   }
 
-  .heidi,
-  .goat {
+  .heidi {
     width: 28%;
+  }
+
+  .goat {
+    width: 24%;
   }
 }
