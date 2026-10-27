@@ -1,42 +1,121 @@
 
-<script>
-  const scene = document.querySelector(".illustration-wrapper");
-  const heidi = document.querySelector(".heidi");
-  const goat = document.querySelector(".goat");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heidi - Interactive Storybook</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="storybook-container">
+    <header>
+      <h1>Heidi by Johanna Spyri</h1>
+    </header>
 
-  scene.addEventListener("mousemove", (event) => {
-    const bounds = scene.getBoundingClientRect();
+    <main class="page-content">
+      <div class="illustration-wrapper">
+        <!-- The meadow remains still -->
+        <img
+          src="swiss_alps_meadow.png"
+          alt="Swiss Alpine meadow"
+          class="meadow"
+        />
 
-    const mouseX = event.clientX - bounds.left;
-    const mouseY = event.clientY - bounds.top;
+        <!-- Heidi follows the cursor -->
+        <img
+          src="heidi_character.png"
+          alt="Heidi"
+          class="heidi"
+        />
 
-    const heidiX = Math.max(
-      0,
-      Math.min(mouseX - heidi.offsetWidth / 2,
-      scene.clientWidth - heidi.offsetWidth)
-    );
+        <!-- The goat follows independently -->
+        <img
+          src="goat_character.png"
+          alt="A goat"
+          class="goat"
+        />
+      </div>
 
-    const heidiY = Math.max(
-      0,
-      Math.min(mouseY - heidi.offsetHeight / 2,
-      scene.clientHeight - heidi.offsetHeight)
-    );
+      <p class="story-text">
+        High up in the Swiss Alps, a little girl named Heidi began her great adventure.
+      </p>
+      <p class="interaction-hint">
+        Move your mouse over the meadow to guide Heidi and her little friend!
+      </p>
+    </main>
+  </div>
 
-    heidi.style.left = heidiX + "px";
-    heidi.style.top = heidiY + "px";
+  <script>
+    const scene = document.querySelector(".illustration-wrapper");
+    const heidi = document.querySelector(".heidi");
+    const goat = document.querySelector(".goat");
 
-    goat.style.left = Math.max(
-      0,
-      Math.min(mouseX - goat.offsetWidth / 2 + 40,
-      scene.clientWidth - goat.offsetWidth)
-    ) + "px";
+    let targetX = 0;
+    let targetY = 0;
+    let heidiX = 0;
+    let heidiY = 0;
+    let goatX = 0;
+    let goatY = 0;
 
-    goat.style.top = Math.max(
-      0,
-      Math.min(mouseY - goat.offsetHeight / 2 + 30,
-      scene.clientHeight - goat.offsetHeight)
-    ) + "px";
-  });
-</script>
+    function updatePositions() {
+      const maxHeidiX = scene.clientWidth - heidi.offsetWidth;
+      const maxHeidiY = scene.clientHeight - heidi.offsetHeight;
+      const maxGoatX = scene.clientWidth - goat.offsetWidth;
+      const maxGoatY = scene.clientHeight - goat.offsetHeight;
+
+      const safeHeidiX = Math.max(0, Math.min(targetX, maxHeidiX));
+      const safeHeidiY = Math.max(0, Math.min(targetY, maxHeidiY));
+      const safeGoatX = Math.max(0, Math.min(targetX + 35, maxGoatX));
+      const safeGoatY = Math.max(0, Math.min(targetY + 20, maxGoatY));
+
+      heidiX += (safeHeidiX - heidiX) * 0.18;
+      heidiY += (safeHeidiY - heidiY) * 0.18;
+
+      goatX += (safeGoatX - goatX) * 0.08;
+      goatY += (safeGoatY - goatY) * 0.08;
+
+      heidi.style.left = heidiX + "px";
+      heidi.style.top = heidiY + "px";
+
+      goat.style.left = goatX + "px";
+      goat.style.top = goatY + "px";
+
+      requestAnimationFrame(updatePositions);
+    }
+
+    function moveCharacters(event) {
+      const bounds = scene.getBoundingClientRect();
+
+      targetX = event.clientX - bounds.left - heidi.offsetWidth / 2;
+      targetY = event.clientY - bounds.top - heidi.offsetHeight / 2;
+    }
+
+    function setInitialPositions() {
+      heidiX = scene.clientWidth * 0.12;
+      heidiY = scene.clientHeight * 0.5;
+      goatX = scene.clientWidth * 0.58;
+      goatY = scene.clientHeight * 0.55;
+
+      heidi.style.left = heidiX + "px";
+      heidi.style.top = heidiY + "px";
+      goat.style.left = goatX + "px";
+      goat.style.top = goatY + "px";
+    }
+
+    scene.addEventListener("pointermove", moveCharacters);
+
+    window.addEventListener("resize", setInitialPositions);
+
+    window.addEventListener("load", () => {
+      setInitialPositions();
+      updatePositions();
+    });
+
+    if (document.readyState === "complete") {
+      setInitialPositions();
+      updatePositions();
+    }
+  </script>
 </body>
 </html>
